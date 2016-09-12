@@ -5,6 +5,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
+//var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 var databaseUri = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
 
 if (!databaseUri) {
@@ -48,16 +49,7 @@ app.get('/test', function(req, res) {
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
+  res.send('{ pageCount: 0 }');
 });
 
 // error handling
