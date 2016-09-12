@@ -203,7 +203,7 @@
                   },
                   {
                     "name": "DATABASE_URI",
-                    "value": "mongodb://127.0.0.1:27017/sampledb"
+                    "value": "mongodb://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_SERVICE_NAME}/${DATABASE_NAME}"
                   }
                 ],
                 "readinessProbe": {

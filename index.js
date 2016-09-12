@@ -6,6 +6,7 @@ var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+databaseUri = 'mongodb://127.0.0.1:27017/sampledb';
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
