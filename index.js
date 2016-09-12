@@ -5,8 +5,8 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
-//var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-var databaseUri = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
+var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+databaseUri = 'mongodb://127.0.0.1:27017/sampledb';
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -46,19 +46,7 @@ app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  res.send('{ pageCount: 0 }');
-});
-
-// error handling
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
-});
-
-var port = port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
