@@ -5,8 +5,13 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
+
+var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase();
+var pw = process.env[mongoServiceName + '_PASSWORD'];
+var user = process.env[mongoServiceName + '_USER'];
+var host = process.env[mongoServiceName + '_SERVICE_HOST']
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-databaseUri = 'mongodb://127.0.0.1:27017/sampledb';
+databaseUri = 'mongodb://' + user + ':' + pw + '@' + host + '/sampledb';
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
